@@ -9,9 +9,12 @@ class RemoteRunnableBatchResponse
 
     public function __construct(?array $responses)
     {
-        foreach ($responses as $response) {
+        foreach ($responses['output'] ?? [] as $key => $response) {
             if($response){
-                $this->responses[] = new RemoteRunnableResponse($response);
+                $template = [];
+                $template['output'] = $response;
+                $template['metadata']['run_id'] = $response['metadata']['run_ids'][$key] ?? null;
+                $this->responses[] = new RemoteRunnableResponse($template);
             }
         }
     }
