@@ -1,0 +1,21 @@
+{
+    "name": "ianrothmann/langsmith-php-client",
+    "description": "A PHP Client for your LangSmith project that is able to call API endpoints such as invoke, batch and stream.",
+    "type": "library",
+    "require": {
+        "php": ">=8.0",
+        "symfony/http-client": ">=6.4"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "IanRothmann\\LangSmithPhpClient\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Ian Rothmann",
+            "email": "ian@xtrapolate.io"
+        }
+    ]
+}
