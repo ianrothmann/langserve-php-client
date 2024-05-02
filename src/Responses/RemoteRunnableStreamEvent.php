@@ -1,6 +1,6 @@
 <?php
 
-namespace IanRothmann\LangSmithPhpClient\Responses;
+namespace IanRothmann\LangServePhpClient\Responses;
 
 class RemoteRunnableStreamEvent
 {

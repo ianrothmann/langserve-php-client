@@ -1,15 +1,17 @@
-# LangSmith PHP Client
+# LangServe PHP Client
 
 ## Purpose
-This package provides a PHP client for the LangSmith API, allowing you to easily call API endpoints such as `invoke`, `batch`, and `stream`. It simplifies the process of sending requests and handling responses from your LangSmith project.
+This package provides a PHP client for the LangServe API, allowing you to easily call API endpoints such as `invoke`, `batch`, and `stream`. It simplifies the process of sending requests and handling responses from your LangServe project.
 
 It was designed to work with vanilla PHP so it can be included with any framework (such as Laravel).
+
+https://www.langchain.com/langserve
 
 ## Installation
 To install the package, use Composer:
 
 ```bash
-composer require ianrothmann/langsmith-php-client
+composer require ianrothmann/langserve-php-client
 ```
 
 ## Dependencies
@@ -24,15 +26,15 @@ composer require symfony/http-client
 ```
 
 ## Usage
-First, instantiate the `RemoteRunnable` with the base URL of your LangSmith API:
+First, instantiate the `RemoteRunnable` with the base URL of your LangServe API:
 
 ```php
-use IanRothmann\LangSmithPhpClient\RemoteRunnable;
+use IanRothmann\LangServePhpClient\RemoteRunnable;
 
 $runnable = new RemoteRunnable('http://localhost:8100/summarize/');
 ```
 
-You can optionally add a Bearer token as the second parameter (remember to implement it in LangSmith):
+You can optionally add a Bearer token as the second parameter (remember to implement it in LangServe):
 ```php
 $runnable = new RemoteRunnable('http://localhost:8100/summarize/',$token);
 ```

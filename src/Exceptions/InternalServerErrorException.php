@@ -1,6 +1,6 @@
 <?php
 
-namespace IanRothmann\LangSmithPhpClient\Exceptions;
+namespace IanRothmann\LangServePhpClient\Exceptions;
 
 use Exception;
 

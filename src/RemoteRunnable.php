@@ -1,14 +1,14 @@
 <?php
-namespace IanRothmann\LangSmithPhpClient;
+namespace IanRothmann\LangServePhpClient;
 
-use IanRothmann\LangSmithPhpClient\Exceptions\InternalServerErrorException;
-use IanRothmann\LangSmithPhpClient\Exceptions\MalformedInputException;
-use IanRothmann\LangSmithPhpClient\Exceptions\NotFoundException;
-use IanRothmann\LangSmithPhpClient\Exceptions\RemoteInvocationException;
-use IanRothmann\LangSmithPhpClient\Responses\RemoteRunnableBatchResponse;
-use IanRothmann\LangSmithPhpClient\Responses\RemoteRunnableResponse;
-use IanRothmann\LangSmithPhpClient\Responses\RemoteRunnableStreamEvent;
-use IanRothmann\LangSmithPhpClient\Responses\RemoteRunnableStreamResponse;
+use IanRothmann\LangServePhpClient\Exceptions\InternalServerErrorException;
+use IanRothmann\LangServePhpClient\Exceptions\MalformedInputException;
+use IanRothmann\LangServePhpClient\Exceptions\NotFoundException;
+use IanRothmann\LangServePhpClient\Exceptions\RemoteInvocationException;
+use IanRothmann\LangServePhpClient\Responses\RemoteRunnableBatchResponse;
+use IanRothmann\LangServePhpClient\Responses\RemoteRunnableResponse;
+use IanRothmann\LangServePhpClient\Responses\RemoteRunnableStreamEvent;
+use IanRothmann\LangServePhpClient\Responses\RemoteRunnableStreamResponse;
 use Symfony\Component\HttpClient\Chunk\ServerSentEvent;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\HttpClient\EventSourceHttpClient;
