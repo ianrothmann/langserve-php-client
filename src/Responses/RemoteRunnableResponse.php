@@ -46,4 +46,19 @@ class RemoteRunnableResponse
     {
         return new self(json_decode($json, true));
     }
+
+    public static function mock($output): self
+    {
+        return new self([
+            'output' => [
+                'content' => $output,
+                'response_metadata' => [
+                    'token_usage' => []
+                ]
+            ],
+            'metadata' => [
+                'run_id' => uniqid()
+            ]
+        ]);
+    }
 }

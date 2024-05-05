@@ -43,4 +43,14 @@ class RemoteRunnableStreamResponse
         ]);
     }
 
+    public static function mock($output): self
+    {
+        $response = new self();
+        $response->addEvent(new RemoteRunnableStreamEvent([
+            'content' => $output,
+        ]));
+
+        return $response;
+    }
+
 }
