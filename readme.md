@@ -36,7 +36,14 @@ $runnable = new RemoteRunnable('http://localhost:8100/summarize/');
 
 You can optionally add a Bearer token as the second parameter (remember to implement it in LangServe):
 ```php
-$runnable = new RemoteRunnable('http://localhost:8100/summarize/',$token);
+$runnable = new RemoteRunnable('http://localhost:8100/summarize/');
+```
+
+You have some different options for adding headers and authentication:
+```php
+$runnable->authenticateWithBearerToken('your-token'); //Add a Bearer token header with the token
+$runnable->authenticateWithXToken('your-token'); //Add the X-Token header, if you implemented it according to the LangServe Examples with X-Token
+$runnable->addHeader('Key', 'Value'); //Add any other header
 ```
 
 ### Invoke

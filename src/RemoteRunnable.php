@@ -19,13 +19,16 @@ use Symfony\Contracts\HttpClient\Exception\HttpExceptionInterface;
 class RemoteRunnable
 {
     protected string $baseUrl;
-    protected ?string $bearerToken;
     protected EventSourceHttpClient $client;
 
-    public function __construct($baseUrl, $bearerToken = null)
+    protected $headers = [
+        'Accept' => 'application/json',
+        'Content-Type' => 'application/json'
+    ];
+
+    public function __construct($baseUrl)
     {
         $this->baseUrl = rtrim($baseUrl, '/');
-        $this->bearerToken = $bearerToken;
         $this->client = new EventSourceHttpClient(HttpClient::create());
     }
 
@@ -135,15 +138,26 @@ class RemoteRunnable
         }
     }
 
+    public function addHeader($key, $value): self
+    {
+        $this->headers[$key] = $value;
+        return $this;
+    }
+
+    public function authenticateWithBearerToken($token): self
+    {
+        $this->headers['Authorization'] = 'Bearer ' . $token;
+        return $this;
+    }
+
+    public function authenticateWithXToken($token): self
+    {
+        $this->headers['X-Token'] = $token;
+        return $this;
+    }
+
     protected function getHeaders()
     {
-        $headers = [
-            'Accept' => 'application/json',
-            'Content-Type' => 'application/json'
-        ];
-        if ($this->bearerToken) {
-            $headers['Authorization'] = 'Bearer ' . $this->bearerToken;
-        }
-        return $headers;
+        return $this->headers;
     }
 }

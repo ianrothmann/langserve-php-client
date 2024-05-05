@@ -17,7 +17,7 @@ class RemoteRunnableResponse
         return $this->data['output']['content'] ?? null;
     }
 
-    public function getContentAsJson(): ?array
+    public function getJsonContent(): ?array
     {
         return json_decode($this->getContent(), true);
     }
