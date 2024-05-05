@@ -49,6 +49,10 @@ class RemoteRunnableResponse
 
     public static function mock($output): self
     {
+        if(is_array($output)){
+            $output = json_encode($output);
+        }
+
         return new self([
             'output' => [
                 'content' => $output,
