@@ -14,7 +14,15 @@ class RemoteRunnableResponse
 
     public function getContent(): ?string
     {
-        return $this->data['output']['content'] ?? null;
+        if(is_array($this->data['output'])){
+            if(sizeof($this->data['output'])==1 && array_key_exists('content', $this->data['output'])){
+                return $this->data['output']['content'] ?? null;
+            }
+        }elseif (is_array($this->data['output'])){
+            return json_encode($this->data['output']);
+        }else{
+            return $this->data['output'] ?? null;
+        }
     }
 
     public function getJsonContent(): ?array
