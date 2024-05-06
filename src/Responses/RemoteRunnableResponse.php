@@ -20,9 +20,9 @@ class RemoteRunnableResponse
             }
         }elseif (is_array($this->data['output'])){
             return json_encode($this->data['output']);
-        }else{
-            return $this->data['output'] ?? null;
         }
+
+        return $this->data['output'] ?? null;
     }
 
     public function getJsonContent(): ?array
