@@ -14,8 +14,8 @@ class RemoteRunnableStreamResponse
             $this->runId = $event->getRunId();
         }
 
-        if($event->getContent()){
-            $this->content .= $event->getContent();
+        if($event->getContentAsString()){
+            $this->content .= $event->getContentAsString();
         }
 
         $this->events[] = $event;
@@ -27,9 +27,20 @@ class RemoteRunnableStreamResponse
         return $this->events;
     }
 
-    public function getContent(): ?string
+    public function getContentAsString(): ?string
     {
         return $this->content;
+    }
+
+    public function getContent(): mixed
+    {
+        $string=$this->getContentAsString();
+        $result=json_decode($string, true);
+        if(json_last_error()==JSON_ERROR_NONE){
+            return $result;
+        }else{
+            return $string;
+        }
     }
 
     public function toJson(): string

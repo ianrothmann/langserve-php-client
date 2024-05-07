@@ -71,10 +71,17 @@ class RemoteRunnable
             foreach ($this->client->stream($response) as $chunk) {
                 if ($chunk instanceof ServerSentEvent) {
                     $data = $chunk->getData();
-                    $event = RemoteRunnableStreamEvent::fromJson($data);
-                    $completeResult->addEvent($event);
-                    if (is_callable($callback)) {
-                        call_user_func($callback, $event);
+                    if($data){
+                        $event = RemoteRunnableStreamEvent::fromJson($data);
+                        $completeResult->addEvent($event);
+                        if (is_callable($callback)) {
+                            try{
+                                call_user_func($callback, $event);
+                            }catch (\Throwable $e){
+                                dd($e);
+                                throw $e;
+                            }
+                        }
                     }
                 }
             }

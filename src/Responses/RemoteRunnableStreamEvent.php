@@ -12,9 +12,30 @@ class RemoteRunnableStreamEvent
         $this->data = $data ?? [];
     }
 
-    public function getContent(): ?string
+    public function getContentAsString(): ?string
     {
-        return $this->data['content'] ?? null;
+        if(array_key_exists('content', $this->data) && array_key_exists('type', $this->data) && $this->data['type']=='AIMessageChunk'){
+            if(is_array($this->data['content'])) {
+                return json_encode($this->data['content']);
+            } else {
+                return $this->data['content'] ?? null;
+            }
+        }elseif(sizeof($this->data)==1 && array_key_exists('run_id', $this->data)){
+            return null;
+        }else{
+            return json_encode($this->data);
+        }
+    }
+
+    public function getContent(): mixed
+    {
+        $string=$this->getContentAsString();
+        $result=json_decode($string, true);
+        if(json_last_error()==JSON_ERROR_NONE){
+            return $result;
+        }else{
+            return $string;
+        }
     }
 
     public function getType(): ?string
@@ -29,7 +50,7 @@ class RemoteRunnableStreamEvent
 
     public function hasContent(): bool
     {
-        return isset($this->data['content']);
+        return !!$this->getContent();
     }
 
     public function getData(): array
@@ -45,5 +66,10 @@ class RemoteRunnableStreamEvent
     public static function fromJson($json): ?self
     {
         return new self(json_decode($json, true));
+    }
+
+    public static function fromArray($array): ?self
+    {
+        return new self($array);
     }
 }
