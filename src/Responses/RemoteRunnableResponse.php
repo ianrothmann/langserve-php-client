@@ -12,20 +12,30 @@ class RemoteRunnableResponse
         $this->data = $data ?? [];
     }
 
-    public function getContent(): ?string
+    public function getContentAsString(): ?string
     {
-        if(is_array($this->data['output']) && sizeof($this->data['output'])==1 && array_key_exists('content', $this->data['output'])){
-            return $this->data['output']['content'] ?? null;
+        if(is_array($this->data['output']) && array_key_exists('content', $this->data['output']) && array_key_exists('response_metadata', $this->data['output'])) {
+            if(is_array($this->data['output']['content'])) {
+                return json_encode($this->data['output']['content']);
+            } else {
+                return $this->data['output']['content'] ?? null;
+            }
         }elseif (is_array($this->data['output'])){
             return json_encode($this->data['output']);
+        }else{
+            return $this->data['output'] ?? null;
         }
-
-        return $this->data['output'] ?? null;
     }
 
-    public function getJsonContent(): ?array
+    public function getContent(): mixed
     {
-        return json_decode($this->getContent(), true);
+        $string=$this->getContentAsString();
+        $result=json_decode($string, true);
+        if(json_last_error()==JSON_ERROR_NONE){
+            return $result;
+        }else{
+            return $string;
+        }
     }
 
     public function getRunId(): ?string
@@ -60,12 +70,7 @@ class RemoteRunnableResponse
         }
 
         return new self([
-            'output' => [
-                'content' => $output,
-                'response_metadata' => [
-                    'token_usage' => []
-                ]
-            ],
+            'output' => $output,
             'metadata' => [
                 'run_id' => uniqid()
             ]
