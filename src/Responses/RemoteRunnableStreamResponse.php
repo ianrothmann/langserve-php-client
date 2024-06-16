@@ -15,7 +15,11 @@ class RemoteRunnableStreamResponse
         }
 
         if($event->getContentAsString()){
-            $this->content .= $event->getContentAsString();
+            if(json_decode($event->getContentAsString(), true)) {
+                $this->content = $event->getContentAsString(); //If it is json, replace the entire string
+            }else{
+                $this->content .= $event->getContentAsString();
+            }
         }
 
         $this->events[] = $event;
