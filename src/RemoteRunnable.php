@@ -165,6 +165,14 @@ class RemoteRunnable
         return $this;
     }
 
+    public function withTraceId($traceId): self
+    {
+        if($traceId){
+            $this->headers['X-Trace-Id'] = $traceId;
+        }
+        return $this;
+    }
+
     protected function getHeaders()
     {
         return $this->headers;
