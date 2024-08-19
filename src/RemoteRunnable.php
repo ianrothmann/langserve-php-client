@@ -80,7 +80,6 @@ class RemoteRunnable
                             try{
                                 call_user_func($callback, $event);
                             }catch (\Throwable $e){
-                                dd($e);
                                 throw $e;
                             }
                         }
