@@ -27,7 +27,7 @@ class RemoteRunnableResponse
         }
     }
 
-    public function getContent(): mixed
+    public function getContent()
     {
         $string=$this->getContentAsString();
         $result=json_decode($string, true);
