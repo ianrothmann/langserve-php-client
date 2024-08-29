@@ -28,10 +28,12 @@ class RemoteRunnable
         'Content-Type' => 'application/json'
     ];
 
-    public function __construct($baseUrl)
+    public function __construct($baseUrl, $timeout = 600)
     {
         $this->baseUrl = rtrim($baseUrl, '/');
-        $this->client = new EventSourceHttpClient(HttpClient::create());
+        $this->client = new EventSourceHttpClient(HttpClient::create([
+            'timeout'=>$timeout
+        ]));
     }
 
     /**
