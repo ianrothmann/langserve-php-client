@@ -28,11 +28,13 @@ class RemoteRunnable
         'Content-Type' => 'application/json'
     ];
 
-    public function __construct($baseUrl, $timeout = 600)
+    public function __construct($baseUrl, $timeout = 600, $verifySsl = true)
     {
         $this->baseUrl = rtrim($baseUrl, '/');
         $this->client = new EventSourceHttpClient(HttpClient::create([
-            'timeout'=>$timeout
+            'timeout'=>$timeout,
+            'verify_peer' => $verifySsl,
+            'verify_host' => $verifySsl,
         ]));
     }
 

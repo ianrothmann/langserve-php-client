@@ -16,9 +16,13 @@ class RemoteRunnablePool
         'Content-Type' => 'application/json'
     ];
 
-    public function __construct()
+    public function __construct($timeout = 600, $verifySsl = true)
     {
-        $this->client = HttpClient::create();
+        $this->client = HttpClient::create([
+            'timeout'=>$timeout,
+            'verify_peer' => $verifySsl,
+            'verify_host' => $verifySsl,
+        ]);
     }
 
     public function invoke($id, $url, $input, $config = []): self
